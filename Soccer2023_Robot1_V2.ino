@@ -17,6 +17,12 @@ int lin[32];
 bool swc[3];
 bool but[4];
 
+const float corrConst = 5;
+float angle;
+
+float calculateRotation(float goalAngle = angle);
+float calculateCorrection(float goalAngle = angle);
+
 void setup() {
   // put your setup code here, to run once:
 
