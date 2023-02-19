@@ -16,30 +16,52 @@ int lid[8] = {0,0,0,0,0,0,0,0};
 int lin[32];
 bool swc[3];
 bool but[4];
+
 int motorPins[4][3] = {{27,8,7},{24,0,1},{25,2,3},{26,4,5}};
 int reverseMotor[4] = {0,1,0,1};
 int speedLevel[4] = {2,0,2,0};
 
 const float corrConst = 5;
 float angle;
+
 int speed = 25;
 int maxSpeed = 30;
 
 float calculateRotation(float goalAngle = angle);
 float calculateCorrection(float goalAngle = angle);
+
 void motorsOn();
 void motorsOff();
 void motorSetSpeed(int n, int speedMotor);
 void go(float speedMotor, float angle, float rotation, int speedLimit = maxSpeed);
 
+void selectLidar(uint8_t i);
+
+void setupMotors();
+void setupLineSensors();
+void setupButtonsSwitches();
+void setupLidars();
+void Setup();
+
 void setup() {
-  // put your setup code here, to run once:
+  
+  Setup();
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
+}
+
+void selectLidar(uint8_t i) {
+  
+  if (i > 7) return;
+ 
+  Wire.beginTransmission(0x70);
+  Wire.write(1 << i);
+  Wire.endTransmission();
+  
 }
 
 void error(String message) {
