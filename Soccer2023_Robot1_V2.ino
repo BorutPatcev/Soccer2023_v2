@@ -43,6 +43,12 @@ void setupButtonsSwitches();
 void setupLidars();
 void Setup();
 
+void readAll();
+void readLineSensors();
+void readLidars();
+void readSwitches();
+void readButtons();
+
 void setup() {
   
   Setup();
@@ -50,7 +56,8 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  
+  readAll();
 
 }
 
