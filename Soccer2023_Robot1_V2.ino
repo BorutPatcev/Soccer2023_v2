@@ -19,16 +19,18 @@ bool but[4];
 
 int motorPins[4][3] = {{27,8,7},{24,0,1},{25,2,3},{26,4,5}};
 int reverseMotor[4] = {1,1,0,0};
-int speedLevel[4] = {0,0,0,0};
+int speedLevel[4] = {0,5,0,3};
 
-const float corrConst = 5;
+const float corrConst = 2;
 float angle;
 
-int speed = 25;
-int maxSpeed = 30;
+int speed = 40;
+int maxSpeed = 50;
 
 int ballX = 0;
 int ballY = 0;
+int treshold = 300;
+bool line = false;
 
 float calculateRotation(float goalAngle = angle);
 float calculateCorrection(float goalAngle = angle);
@@ -63,6 +65,19 @@ void loop() {
   
   readAll();
 
+  if (but[2]) {
+    angle = compass.heading();
+  }
+
+  while (swc[0]) {
+    readAll();
+    motorsOn();
+    if (ballX == 0 || line) {
+      go(0,0,calculateCorrection());
+    } else {
+      go(speed,(ballX - 160) / 3, calculateCorrection());
+    }
+  }
   motorsOff();
 
 }

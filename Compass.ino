@@ -1,5 +1,5 @@
 float calculateRotation(float goalAngle = angle) {
-  float difference = compass.heading() - goalAngle;
+  float difference = goalAngle - compass.heading();
   if (difference > 180) difference -= 360;
   else if (difference < -180) difference += 360;
   return difference;

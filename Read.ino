@@ -11,6 +11,7 @@ void readAll() {
 void readLineSensors() {
 
   int counter = 0;
+  bool found = false;
   
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
@@ -27,12 +28,19 @@ void readLineSensors() {
           lin[counter] = analogRead(A16);
           lin[counter + 16] = analogRead(A17);
 
+          if (lin[counter] > treshold || lin[counter + 16] > treshold) found = true;
           counter++;
           
         }
       }
     }
   }
+  if (found) {
+    line = true;
+  } else {
+    line = false;
+  }
+  //Bluetooth.println(lin[0]);
 
 }
 
@@ -97,7 +105,7 @@ void readCamera() {
 
   }
 
-  /*Bluetooth.print(ballX);
+ /* Bluetooth.print(ballX);
   Bluetooth.print(" ");
   Bluetooth.println(ballY);*/
 
