@@ -24,7 +24,7 @@ void motorSetSpeed(int n, int speedMotor) {
 
 void go(float speedMotor, float angle, float rotation, int speedLimit = maxSpeed) {
   
-  angle += 45;
+  angle += 135;
   angle *= -1;
   angle = toRad(angle);
   float si = sin(angle);
@@ -32,12 +32,12 @@ void go(float speedMotor, float angle, float rotation, int speedLimit = maxSpeed
   float motorSpeed[4];
   
   motorSpeed[0] = -speedMotor * si - rotation;
-  motorSpeed[1] = -speedMotor * co - rotation;
+  motorSpeed[1] =  speedMotor * co - rotation;
   motorSpeed[2] =  speedMotor * si - rotation;
-  motorSpeed[3] =  speedMotor * co - rotation;
+  motorSpeed[3] = -speedMotor * co - rotation;
 
   float maxMotorSpeed = abs(motorSpeed[0]);
-  for (int i = 1; i < 4; i++) {
+  for (int i = 0; i < 4; i++) {
     if (abs(motorSpeed[i]) > maxMotorSpeed) 
       maxMotorSpeed = abs(motorSpeed[i]);
   }
