@@ -10,6 +10,8 @@ sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time = 2000)
 sensor.set_auto_gain(False)
 sensor.set_auto_whitebal(False)
+sensor.set_vflip(True)
+sensor.set_hmirror(True)
 
 uart = UART(3, 115200)
 
@@ -34,17 +36,19 @@ while(True):
     yM = 0
     rM = 0
 
-    for blob in img.find_blobs([thresholds], pixels_threshold=50, area_threshold=50, merge=True):
-        img.draw_rectangle(blob.rect())
-        img.draw_cross(blob.cx(), blob.cy())
+    for blob in img.find_blobs([thresholds], pixels_threshold=15, area_threshold=15, merge=True):
         found = True
-        if blob.r() > rM:
+        if blob.area() > rM and blob.cy() > 20:
+            img.draw_rectangle(blob.rect())
+            img.draw_cross(blob.cx(), blob.cy())
             xM = blob.cx()
             yM = blob.cy()
+            rM = blob.area()
+
 
     if found == True:
-        r.on()
+        g.on()
     else:
-        r.off()
+        g.off()
 
     uart.write(str(xM) + ' ' + str(yM) + '#')
