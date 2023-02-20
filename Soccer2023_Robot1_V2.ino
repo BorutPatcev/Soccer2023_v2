@@ -27,6 +27,9 @@ float angle;
 int speed = 25;
 int maxSpeed = 30;
 
+int ballX = 0;
+int ballY = 0;
+
 float calculateRotation(float goalAngle = angle);
 float calculateCorrection(float goalAngle = angle);
 
@@ -48,6 +51,7 @@ void readLineSensors();
 void readLidars();
 void readSwitches();
 void readButtons();
+void readCamera();
 
 void setup() {
   
@@ -60,7 +64,7 @@ void loop() {
   readAll();
 
   motorsOff();
-  
+
 }
 
 void selectLidar(uint8_t i) {

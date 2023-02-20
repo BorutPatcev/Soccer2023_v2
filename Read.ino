@@ -1,9 +1,10 @@
 void readAll() {
 
   readLineSensors();
-  readLidars();
+  //readLidars();
   readSwitches();
   readButtons();
+  readCamera();
   
 }
 
@@ -58,4 +59,46 @@ void readButtons() {
   but[2] = digitalRead(38);
   but[3] = digitalRead(37);
   
+}
+
+void readCamera() {
+  
+  if (Camera.available()) {
+
+    String msg = Camera.readStringUntil('#');
+    Camera.clear();
+
+    //Serial.println(msg);
+    //Bluetooth.println(msg);
+
+    bool XorY = false;
+    int counter = 0;
+
+    int xCam = 0;
+    int yCam = 0;
+
+    for (int i = msg.length() - 1; i > -1; i--) {
+      
+      if (msg[i] == ' ') {
+        XorY = true;
+        counter = 0;
+      } else {
+        if (XorY) {
+          xCam += (int(msg[i]) - 48) * pow10(counter);
+        } else {
+          yCam += (int(msg[i]) - 48) * pow10(counter);
+        }
+        counter++;
+      }
+    }
+
+    ballX = xCam;
+    ballY = yCam;
+
+  }
+
+  /*Bluetooth.print(ballX);
+  Bluetooth.print(" ");
+  Bluetooth.println(ballY);*/
+
 }
