@@ -37,8 +37,8 @@ while(True):
     rM = 0
 
     for blob in img.find_blobs([thresholds], pixels_threshold=15, area_threshold=15, merge=True):
-        found = True
-        if blob.area() > rM and blob.cy() > 20:
+        if blob.area() > rM and blob.cy() > 12:
+            found = True
             img.draw_rectangle(blob.rect())
             img.draw_cross(blob.cx(), blob.cy())
             xM = blob.cx()
