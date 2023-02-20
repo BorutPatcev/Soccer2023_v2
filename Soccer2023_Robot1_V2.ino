@@ -18,8 +18,8 @@ bool swc[3];
 bool but[4];
 
 int motorPins[4][3] = {{27,8,7},{24,0,1},{25,2,3},{26,4,5}};
-int reverseMotor[4] = {0,1,0,1};
-int speedLevel[4] = {2,0,2,0};
+int reverseMotor[4] = {1,1,0,0};
+int speedLevel[4] = {0,0,0,0};
 
 const float corrConst = 5;
 float angle;
@@ -59,6 +59,8 @@ void loop() {
   
   readAll();
 
+  motorsOff();
+  
 }
 
 void selectLidar(uint8_t i) {
