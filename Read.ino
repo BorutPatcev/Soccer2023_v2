@@ -1,7 +1,7 @@
 void readAll() {
 
   readLineSensors();
-  //readLidars();
+  readLidars();
   readSwitches();
   readButtons();
   readCamera();
@@ -28,29 +28,32 @@ void readLineSensors() {
           lin[counter] = analogRead(A16);
           lin[counter + 16] = analogRead(A17);
 
-          if (lin[counter] > treshold || lin[counter + 16] > treshold) found = true;
+          if (lin[counter] > treshold || lin[counter + 16] > treshold){
+             found = true;
+          }
           counter++;
           
         }
       }
     }
   }
+
   if (found) {
     line = true;
   } else {
     line = false;
   }
-  //Bluetooth.println(lin[0]);
 
 }
 
 void readLidars() {
-
-  for (int i = 0; i < 8; i++) {
-    selectLidar(i);
-    lid[i] = lidar.read();
+  if (timerLidar + 50 <= millis()) {
+    for (int i = 0; i < 8; i++) {
+      selectLidar(i);
+      lid[i] = lidar.read();
+    }
+    timerLidar = millis();
   }
-  
 }
 
 void readSwitches() {
@@ -100,8 +103,14 @@ void readCamera() {
       }
     }
 
-    ballX = xCam;
+    ballX = xCam - 160 + camShiftX;
     ballY = yCam;
+
+    if (ballX == -160 && ballY == 0) {
+      seeBall = false;
+    } else {
+      seeBall = true;
+    }
 
   }
 
