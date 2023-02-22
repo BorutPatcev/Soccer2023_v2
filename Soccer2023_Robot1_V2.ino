@@ -43,6 +43,7 @@ int disBack = 500;
 int diffLR = 0;
 int centerLimit = 100;
 int directionBack = 180;
+int disGoalkeeper = 150;
 
 bool line = false;
 bool seeBall = false;
@@ -90,6 +91,13 @@ void loop() {
     angle = compass.heading();
   }
 
+  if (but[0]) {
+    angle = compass.heading() + 180;
+    if (angle >= 360) {
+      angle -= 360;
+    }
+  }
+
   while (swc[0]) {
     
     int lidgol;
@@ -125,8 +133,8 @@ void loop() {
       } else {
         go(speed - int(abs((ballX)/10)),(ballX) / 2, calculateCorrection());
       }
-    }
-*/
+    }*/
+
     front = (lid[1] < disFront) || (lid[2] < disFront);
     left = (lid[0] < disLeft) || (lid[7] < disLeft);
     right = (lid[3] < disRight) || (lid[4] < disRight);
@@ -134,7 +142,7 @@ void loop() {
 
     diffLR = int((lid[0] + lid[8]) / 2) - int((lid[3] + lid[4]) / 2);
 
-    if (seeBall) {
+    if (seeBall && ballY > disGoalkeeper) {
       if (line) {
         if (front) {
           go(speedLine,-180,calculateCorrection());
