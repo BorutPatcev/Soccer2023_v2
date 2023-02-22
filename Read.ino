@@ -47,7 +47,7 @@ void readLineSensors() {
 }
 
 void readLidars() {
-  if (timerLidar + 50 <= millis()) {
+  if (timerLidar + 70 <= millis()) {
     for (int i = 0; i < 8; i++) {
       selectLidar(i);
       lid[i] = lidar.read();
@@ -106,7 +106,7 @@ void readCamera() {
     ballX = xCam - 160 + camShiftX;
     ballY = yCam;
 
-    if (ballX == -160 && ballY == 0) {
+    if (ballX == -160 + camShiftX && ballY == 0) {
       seeBall = false;
     } else {
       seeBall = true;
