@@ -12,6 +12,10 @@
 IMUBoschBNO055 compass;
 VL53L1X lidar;
 
+#define kP 2.0
+#define kD 0.5
+#define kI 0.1
+
 int lid[8] = {0,0,0,0,0,0,0,0};
 int lin[32];
 bool swc[3];
@@ -63,7 +67,7 @@ float calculateCorrection(float goalAngle = angle);
 void motorsOn();
 void motorsOff();
 void motorSetSpeed(int n, int speedMotor);
-void go(float speedMotor, float angle, float rotation, int speedLimit = maxSpeed);
+void go(float speedMotor, float angle, float rotation = calculateCorrection(), int speedLimit = maxSpeed);
 
 void selectLidar(uint8_t i);
 
@@ -111,7 +115,7 @@ void loop() {
     right = (lid[3] < disRight) || (lid[4] < disRight);
     back = (lid[5] < disBack) && (lid[6] < disBack);
 
-    diffLR = int((lid[0] + lid[8]) / 2) - int((lid[3] + lid[4]) / 2);
+    diffLR = int((lid[0] + lid[7]) / 2) - int((lid[3] + lid[4]) / 2);
 
     if (seeBall && ballY > disGoalkeeper) {
       if (line) {

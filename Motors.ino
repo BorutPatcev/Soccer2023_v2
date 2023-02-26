@@ -22,7 +22,7 @@ void motorSetSpeed(int n, int speedMotor) {
   analogWrite(motorPins[n][1], abs(speedMotor) - int((speedLevel[n]*abs(speedMotor)/10)));
 }
 
-void go(float speedMotor, float angle, float rotation, int speedLimit = maxSpeed) {
+void go(float speedMotor, float angle, float rotation = calculateCorrection(), int speedLimit = maxSpeed) {
   
   angle += 135;
   angle *= -1;
