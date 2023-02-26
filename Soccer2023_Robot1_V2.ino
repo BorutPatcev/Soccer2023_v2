@@ -25,10 +25,9 @@ int motorPins[4][3] = {{27,8,7},{24,0,1},{25,2,3},{26,4,5}};
 int reverseMotor[4] = {1,1,0,0};
 int speedLevel[4] = {0,5,0,3};
 
-const float corrConst = 2;
 const float ballConst = 2.1;
 const float backConst = 15;
-float angle;
+float startAngle;
 
 int speed = 40;
 int maxSpeed = 45;
@@ -61,8 +60,8 @@ bool backClose;
 
 unsigned long timerLidar = 0;
 
-float calculateRotation(float goalAngle = angle);
-float calculateCorrection(float goalAngle = angle);
+float calculateRotation(float goalAngle = startAngle);
+float calculateCorrection(float goalAngle = startAngle);
 
 void motorsOn();
 void motorsOff();
@@ -95,13 +94,13 @@ void loop() {
   readAll();
 
   if (but[2]) {
-    angle = compass.heading();
+    startAngle = compass.heading();
   }
 
   if (but[0]) {
-    angle = compass.heading() + 180;
-    if (angle >= 360) {
-      angle -= 360;
+    startAngle = compass.heading() + 180;
+    if (startAngle >= 360) {
+      startAngle -= 360;
     }
   }
 

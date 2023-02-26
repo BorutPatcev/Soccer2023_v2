@@ -1,11 +1,11 @@
-float calculateRotation(float goalAngle = angle) {
+float calculateRotation(float goalAngle = startAngle) {
   float difference = goalAngle - compass.heading();
   if (difference > 180) difference -= 360;
   else if (difference < -180) difference += 360;
   return difference;
 }
 
-float calculateCorrection(float goalAngle = angle) {
+float calculateCorrection(float goalAngle = startAngle) {
 
   static float derivative = 0;
   static float integrative = 0;

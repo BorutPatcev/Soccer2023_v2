@@ -23,7 +23,7 @@ void readLineSensors() {
           digitalWrite(30,k);
           digitalWrite(31,l);
 
-          delay(1);
+          delayMicroseconds(10);
 
           lin[counter] = analogRead(A16);
           lin[counter + 16] = analogRead(A17);
