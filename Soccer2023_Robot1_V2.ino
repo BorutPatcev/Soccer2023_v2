@@ -103,40 +103,8 @@ void loop() {
 
   while (swc[0]) {
     
-    int lidgol;
-    
     readAll();
     motorsOn();
-    /*lidgol=lid[0]-lid[3];
-    if (ballX == -160 && lid[5]>500 && lid[6]>500 ) {
-      if(lidgol>150){
-        go(speed,-155,calculateCorrection());
-      }
-      else if(lidgol<-150){
-        go(speed,155,calculateCorrection());
-      }
-      else{
-      go(speed,-180,calculateCorrection());
-      }
-    }
-    else if(ballX == -160 && lid[5]<500 && lid[6]<500){
-      go(0,0,calculateCorrection());
-    } else {
-      if (line && ballX != -160) {
-        //Bluetooth.println(ballX - 160);
-        if ((ballX) >= 40 && lid[3] < 300 && lid[4] < 300) {
-          go(0,0,calculateCorrection());
-        } else if ((ballX) <= -40 && lid[0] < 300 && lid[7] < 300) {
-          go(0,0,calculateCorrection());
-        } else if (((ballX) > 40 && (ballX) < -40) || lid[1] < 500 && lid[2] < 500) {
-          go(0,0,calculateCorrection());
-        } else {
-          go(speed - int(abs((ballX)/10)),(ballX) / 2, calculateCorrection());
-        }
-      } else {
-        go(speed - int(abs((ballX)/10)),(ballX) / 2, calculateCorrection());
-      }
-    }*/
 
     front = (lid[1] < disFront) || (lid[2] < disFront);
     left = (lid[0] < disLeft) || (lid[7] < disLeft);
@@ -161,13 +129,6 @@ void loop() {
       }
     } else {
       if (back) {
-        /*if (diffLR > centerLimit) {
-          go(speedBack, -70, calculateCorrection());
-        } else if (diffLR < -centerLimit) {
-          go(speedBack, 70, calculateCorrection());
-        } else {
-          go(0,0,calculateCorrection());
-        }*/
         go(0,0,calculateCorrection());
       } else {
         directionBack = 180 + int(diffLR / backConst);
