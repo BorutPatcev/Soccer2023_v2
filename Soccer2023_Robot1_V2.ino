@@ -37,13 +37,15 @@ int treshold = 300;
 int camShiftX = 15;
 
 int disFront = 500;
-int disLeft = 300;
-int disRight = 300;
-int disBack = 500;
+int disLeft = 400;
+int disRight = 400;
+int disBack = 400;
 int diffLR = 0;
-int centerLimit = 100;
+int centerLimit = 200;
 int directionBack = 180;
-int disGoalkeeper = 150;
+int disGoalkeeper = 55;
+int disBackClose = 350;
+int ballGoalkeeper = 20;
 
 bool line = false;
 bool seeBall = false;
@@ -51,6 +53,7 @@ bool front;
 bool left;
 bool right;
 bool back;
+bool backClose;
 
 unsigned long timerLidar = 0;
 
@@ -138,7 +141,7 @@ void loop() {
     front = (lid[1] < disFront) || (lid[2] < disFront);
     left = (lid[0] < disLeft) || (lid[7] < disLeft);
     right = (lid[3] < disRight) || (lid[4] < disRight);
-    back = (lid[5] < disBack) || (lid[6] < disBack);
+    back = (lid[5] < disBack) && (lid[6] < disBack);
 
     diffLR = int((lid[0] + lid[8]) / 2) - int((lid[3] + lid[4]) / 2);
 
