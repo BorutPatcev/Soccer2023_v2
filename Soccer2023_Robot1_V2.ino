@@ -119,24 +119,24 @@ void loop() {
     if (seeBall && ballY > disGoalkeeper) {
       if (line) {
         if (front) {
-          go(speedLine,-180,calculateCorrection());
+          go(speedLine,-180);
         } else if (left && ballX < 0) {
-          go(speedLine,90,calculateCorrection());
+          go(speedLine,90);
         } else if (right && ballX > 0) {
-          go(speedLine,-90,calculateCorrection());
+          go(speedLine,-90);
         } else {
-          go(speed, ballX / ballConst, calculateCorrection());
+          go(speed, ballX / ballConst);
         }
       } else {
-        go(speed, ballX / ballConst, calculateCorrection());
+        go(speed, ballX / ballConst);
       }
     } else {
       if (back) {
-        go(0,0,calculateCorrection());
+        go(0,0);
       } else {
         directionBack = 180 + int(diffLR / backConst);
         if (directionBack > 180) directionBack -= 360;
-        go(speedBack, directionBack, calculateCorrection());
+        go(speedBack, directionBack);
       }
     }
   }
