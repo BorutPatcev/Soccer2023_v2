@@ -25,6 +25,13 @@ int motorPins[4][3] = {{27,8,7},{24,0,1},{25,2,3},{26,4,5}};
 int reverseMotor[4] = {1,1,0,0};
 int speedLevel[4] = {0,5,0,3};
 
+enum State {
+  PAUSED,
+  PLAY
+};
+
+State state = PAUSED;
+
 const float ballConst = 2.1;
 const float backConst = 15;
 float startAngle;
@@ -75,6 +82,7 @@ void setupLineSensors();
 void setupButtonsSwitches();
 void setupLidars();
 void Setup();
+void Play();
 
 void readAll();
 void readLineSensors();
@@ -82,6 +90,9 @@ void readLidars();
 void readSwitches();
 void readButtons();
 void readCamera();
+
+void soccer();
+void Line();
 
 void setup() {
   
@@ -91,57 +102,7 @@ void setup() {
 
 void loop() {
   
-  readAll();
-
-  if (but[2]) {
-    startAngle = compass.heading();
-  }
-
-  if (but[0]) {
-    startAngle = compass.heading() + 180;
-    if (startAngle >= 360) {
-      startAngle -= 360;
-    }
-  }
-
-  while (swc[0]) {
-    
-    readAll();
-    motorsOn();
-
-    front = (lid[1] < disFront) || (lid[2] < disFront);
-    left = (lid[0] < disLeft) || (lid[7] < disLeft);
-    right = (lid[3] < disRight) || (lid[4] < disRight);
-    back = (lid[5] < disBack) && (lid[6] < disBack);
-
-    diffLR = int((lid[0] + lid[7]) / 2) - int((lid[3] + lid[4]) / 2);
-
-    if (seeBall && ballY > disGoalkeeper) {
-      if (line) {
-        if (front) {
-          go(speedLine,-180);
-        } else if (left && ballX < 0) {
-          go(speedLine,90);
-        } else if (right && ballX > 0) {
-          go(speedLine,-90);
-        } else {
-          go(speed, ballX / ballConst);
-        }
-      } else {
-        go(speed, ballX / ballConst);
-      }
-    } else {
-      if (back) {
-        go(0,0);
-      } else {
-        directionBack = 180 + int(diffLR / backConst);
-        if (directionBack > 180) directionBack -= 360;
-        go(speedBack, directionBack);
-      }
-    }
-  }
-  
-  motorsOff();
+  Play();
 
 }
 
