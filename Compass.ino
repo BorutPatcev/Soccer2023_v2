@@ -17,8 +17,9 @@ float calculateCorrection(float goalAngle = startAngle) {
 
   if (millisElapsed > 0.00001) {
     derivative = (proportional - lastValue) / millisElapsed;
+    lastValue = proportional;
+    lastMicros = micros();
   }
-  lastMicros = micros();
 
   float pidCorrection = proportional * kP + derivative * kD + integrative * kI;
 
